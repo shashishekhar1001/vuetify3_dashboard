@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- IMPORT MD ICONS & VUETIFY 3 CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet" />
+	<link href="https://cdn.jsdelivr.net/npm/vuetify@3.1.5/dist/vuetify.min.css" rel="stylesheet" />
+</head>
+
+<body>
+	<!-- APP TO BE RENDERED IN DIV -->
+	<div id="app"></div>
+	<!-- IMPORT VUE 3 & VUETIFY 3 JS -->
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuetify@3.1.5/dist/vuetify.min.js"></script>
+	<!-- VUE APP TEMPLATE -->
+	<script type="text/x-template" id="app-template">
+    	<v-app>
+			<v-card>
+				<v-layout>
+					<!-- START NAVIGATION DRAWER -->
+					<v-navigation-drawer
+					v-model="drawer"
+					expand-on-hover
+       				rail
+					theme="dark"
+					style="height:95vh; top: 2.5vh; left: 10px; border-radius: 15px; padding-top: 1vh;"
+				  	>
+						<v-list-item
+						prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
+						title="John Leider"
+						nav
+						>
+						</v-list-item>
+			
+						<v-divider></v-divider>
+			
+						<v-list density="compact" nav>
+							<v-list-item prepend-icon="mdi-home-city" title="Home" value="home"></v-list-item>
+							<v-list-item prepend-icon="mdi-account" title="My Account" value="account"></v-list-item>
+							<v-list-item prepend-icon="mdi-account-group-outline" title="Users" value="users"></v-list-item>
+						</v-list>
+						<template v-slot:append>
+							<v-list density="compact" nav>
+								<v-list-item prepend-icon="mdi-logout" title="Logout" value="logout"></v-list-item>
+							</v-list>
+						</template>
+				  	</v-navigation-drawer>
+					<!-- END NAVIGATION DRAWER -->
+
+					<!-- START APP BAR -->
+					<v-app-bar :elevation="0" rounded>
+						<template v-slot:append>
+							<!-- TOGGLE DRAWER -->
+							<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+							<!-- END TOGGLE DRAWER -->
+						</template>
+					</v-app-bar>
+					<!-- END APP BAR -->
+
+				  	<v-main style="height:100vh">
+					</v-main>
+				</v-layout>
+			</v-card>
+      	</v-app>
+    </script>
+	<!-- END VUE APP TEMPLATE -->
+	<!-- CREATE AND MOUNT VUE APP WITH VUETIFY -->
+	<script>
+		const { createApp } = Vue;
+		const { createVuetify } = Vuetify;
+
+		const vuetify = createVuetify(
+			theme = { defaultTheme: 'dark' },
+		);
+
+		const app = createApp({
+			template: "#app-template",
+			data: () => ({
+				drawer: true,
+				items: [
+							{ title: 'Home', icon: 'mdi-home-city' },
+							{ title: 'My Account', icon: 'mdi-account' },
+							{ title: 'Users', icon: 'mdi-account-group-outline' },
+       			],
+				rail: true,
+			})
+		})
+		.use(vuetify)
+		.mount("#app");
+	</script>
+	<!-- END CREATE AND MOUNT VUE APP WITH VUETIFY -->
+</body>
+
+</html>
